@@ -1,0 +1,16 @@
+apply plugin: ('com.android.library')
+apply plugin: ('kotlin-android')
+
+apply from: rootProject.file('config.gradle')
+
+android {
+    defaultConfig {
+        buildToolsVersion build_tools_v
+        compileSdkVersion compile_sdk_v
+        minSdkVersion min_sdk_v
+        targetSdkVersion target_sdk_v
+    }
+}
+
+dependencies {
+}
