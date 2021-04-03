@@ -6,6 +6,9 @@ import com.google.gson.GsonBuilder
 
 /**
  * Конвертер данных в массив байтов и обратно, использующий для конвертации [Gson].
+ *
+ * @param classType тип класса конвертируемых данных
+ * @param gson объект [Gson], который будет использоваться для конвертации
  */
 class GsonConverter<T>(
         private val classType: Class<T>,
