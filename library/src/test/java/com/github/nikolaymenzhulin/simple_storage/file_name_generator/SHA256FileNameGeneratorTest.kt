@@ -1,24 +1,10 @@
 package com.github.nikolaymenzhulin.simple_storage.file_name_generator
 
-import com.github.nikolaymenzhulin.logger.Logger
-import com.github.nikolaymenzhulin.logger.strategies.strategy.TestLoggerStrategy
+import com.github.nikolaymenzhulin.simple_storage.base.BaseUnitTest
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 
-class SHA256FileNameGeneratorTest {
-
-    companion object {
-
-        @BeforeAll
-        @JvmStatic
-        fun setUp() {
-            Logger.strategies.apply {
-                clear()
-                add(TestLoggerStrategy())
-            }
-        }
-    }
+class SHA256FileNameGeneratorTest : BaseUnitTest() {
 
     @Test
     fun `Check file name generation`() {

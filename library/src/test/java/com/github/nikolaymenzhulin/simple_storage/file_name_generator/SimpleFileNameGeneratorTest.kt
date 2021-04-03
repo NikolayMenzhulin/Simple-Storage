@@ -1,9 +1,10 @@
 package com.github.nikolaymenzhulin.simple_storage.file_name_generator
 
+import com.github.nikolaymenzhulin.simple_storage.base.BaseUnitTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class SimpleFileNameGeneratorTest {
+class SimpleFileNameGeneratorTest : BaseUnitTest() {
 
     @Test
     fun `Check file name generation`() {
