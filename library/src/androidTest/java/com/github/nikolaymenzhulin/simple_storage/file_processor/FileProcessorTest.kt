@@ -65,9 +65,8 @@ class FileProcessorTest {
     @DisplayName("Check getting bytes from cache")
     fun checkGettingBytesFromCache() {
         val fileProcessor: FileProcessor = createFileProcessor()
-        var actualBytes: ByteArray?
 
-        actualBytes = fileProcessor.get(expectedFileName)
+        var actualBytes: ByteArray? = fileProcessor.get(expectedFileName)
         assertNull(actualBytes)
 
         fileProcessor.put(expectedFileName, expectedBytes)
