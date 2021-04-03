@@ -26,6 +26,9 @@ android {
 dependencies {
     implementation "com.github.nikolaymenzhulin:logger:$logger_v"
 
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_v"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_v"
+
     androidTestImplementation "org.junit.jupiter:junit-jupiter-api:$junit_v"
     androidTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_v"
     androidTestImplementation "androidx.test:core:$android_test_core_v"
