@@ -129,7 +129,7 @@ class FileProcessor(
      * @return список названий файлов в кэше
      */
     fun getFilesNames(): List<String> =
-            getCacheFilesNames().map { it.removeLastModifiedTag() }
+            getCacheFilesNames().sortedByDescending { it.getLastModifiedTag() }.map { it.removeLastModifiedTag() }
 
     private fun getCacheFilesNames(): List<String> =
             cacheDir.listFiles()?.map(File::getName) ?: emptyList()
