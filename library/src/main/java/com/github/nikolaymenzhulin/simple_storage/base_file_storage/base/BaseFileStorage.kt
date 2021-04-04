@@ -107,6 +107,13 @@ abstract class BaseFileStorage<T>(
     fun contains(key: String): Boolean =
             fileProcessor.contains(fileName = key.toFileName())
 
+    /**
+     * Содержутся ли данные в хранилище?
+     *
+     * @return true, если хранилище пустое, иначе - false
+     */
+    fun isEmpty(): Boolean = fileProcessor.isEmpty()
+
     private fun String.toFileName(): String =
             fileNameGenerator.generate(this)
                     ?: throw IllegalStateException("Generated file name from key is empty")

@@ -90,6 +90,14 @@ class BaseFileStorageTest {
         assertFalse { userStorage.contains(key) }
     }
 
+    @Test
+    @DisplayName("Check storage is empty")
+    fun checkStorageIsEmpty() {
+        assertTrue { userStorage.isEmpty() }
+        putOneUser()
+        assertFalse { userStorage.isEmpty() }
+    }
+
     private fun putOneUser(): Pair<String, User> {
         val key = "User_1"
         val user = User()
