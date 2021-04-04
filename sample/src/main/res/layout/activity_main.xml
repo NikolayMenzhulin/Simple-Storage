@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.github.nikolaymenzhulin.simple_storage.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/users_names_list_tv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Hello World!" />
+        android:lineSpacingExtra="16dp"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:fontFamily="casual"
+        tools:text="User Name 1\nUser Name 2\nUser Name 3" />
 
-</FrameLayout>
+</ScrollView>
