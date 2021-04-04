@@ -109,6 +109,14 @@ class FileProcessor(
     }
 
     /**
+     * Содержутся ли файлы в кэше?
+     *
+     * @return true, если кэш пуст, иначе - false
+     */
+    fun isEmpty(): Boolean =
+            cacheDir.listFiles()?.isEmpty() ?: true
+
+    /**
      * Получить список названий всех файлов в директории кэша.
      *
      * @return список названий файлов в кэше

@@ -168,6 +168,17 @@ class FileProcessorTest {
     }
 
     @Test
+    @DisplayName("Check cache is empty")
+    fun checkCacheIsEmpty() {
+        val fileProcessor: FileProcessor = createFileProcessor()
+
+        assertTrue { fileProcessor.isEmpty() }
+
+        fileProcessor.put(expectedFileName, expectedBytes)
+        assertFalse { fileProcessor.isEmpty() }
+    }
+
+    @Test
     @DisplayName("Check getting files names")
     fun checkGettingFilesNames() {
         val expectedFileName1 = "test_file_1.txt"
