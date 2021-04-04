@@ -14,8 +14,8 @@ import java.io.File
  * @property cacheDir директория текущего кэша, в которой хранятся его файлы
  */
 class FileProcessor(
-        cacheDirPath: String,
-        cacheDirName: String,
+        private val cacheDirPath: String,
+        private val cacheDirName: String,
         private val maxFilesCount: Int
 ) {
 
@@ -24,8 +24,12 @@ class FileProcessor(
         const val LIBRARY_DIR_NAME = "simple_storage"
     }
 
-    private val libraryDir: File = File(cacheDirPath, LIBRARY_DIR_NAME).apply { mkdir() }
-    private val cacheDir: File = File(libraryDir, cacheDirName).apply { mkdir() }
+    private lateinit var libraryDir: File
+    private lateinit var cacheDir: File
+
+    init {
+        createCacheDir()
+    }
 
     /**
      * Добавить байты из [data] в файл и сохранить его в директорию кэша.
@@ -38,6 +42,7 @@ class FileProcessor(
      */
     fun put(fileName: String, data: ByteArray) {
         try {
+            createCacheDir()
             val cacheFileName: String = fileName.setLastModifiedTag()
             File(cacheDir, cacheFileName).writeBytes(data)
             removeOldestFileIfMaxReached()
@@ -133,6 +138,11 @@ class FileProcessor(
                 ?.sortedByDescending { it.name.getLastModifiedTag() }
                 ?.drop(maxFilesCount)
                 ?.forEach(File::delete)
+    }
+
+    private fun createCacheDir() {
+        libraryDir = File(cacheDirPath, LIBRARY_DIR_NAME).apply { mkdir() }
+        cacheDir = File(libraryDir, cacheDirName).apply { mkdir() }
     }
 
     private fun File.deleteDirIfEmpty() {

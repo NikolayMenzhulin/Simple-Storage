@@ -32,8 +32,20 @@ class FileProcessorTest {
     @Test
     @DisplayName("Check cache dir creation")
     fun checkCacheDirCreation() {
-        createFileProcessor()
+        val fileProcessor = createFileProcessor()
+
+        val libraryDir = File(expectedLibraryDirPath)
         val cacheDir = File(expectedCacheDirPath)
+
+        assertTrue { libraryDir.exists() }
+        assertTrue { cacheDir.exists() }
+
+        fileProcessor.apply {
+            clear()
+            put(expectedFileName, expectedBytes)
+        }
+
+        assertTrue { libraryDir.exists() }
         assertTrue { cacheDir.exists() }
     }
 
