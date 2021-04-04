@@ -43,6 +43,8 @@ class FileProcessor(
     fun put(fileName: String, data: ByteArray) {
         try {
             createCacheDir()
+            deleteExistedFileIfHas(fileName)
+
             val cacheFileName: String = fileName.setLastModifiedTag()
             File(cacheDir, cacheFileName).writeBytes(data)
             removeOldestFileIfMaxReached()
@@ -69,7 +71,7 @@ class FileProcessor(
     fun get(fileName: String): ByteArray? {
         if (!contains(fileName)) return null
         return try {
-            val cacheFileName: String? = getCacheFilesNames().firstOrNull { it.contains(fileName) }
+            val cacheFileName: String? = getCacheFileName(fileName)
             cacheFileName?.let { File(cacheDir, cacheFileName).readBytes() }
         } catch (e: Exception) {
             Logger.e(message = "Error while reading data from cache in ${FileProcessor::class.simpleName}", error = e)
@@ -109,7 +111,7 @@ class FileProcessor(
      * @return true, если файл имеется в кэше, иначе - false
      */
     fun contains(fileName: String): Boolean {
-        val cacheFileName: String = getCacheFilesNames().firstOrNull { it.contains(fileName) } ?: return false
+        val cacheFileName: String = getCacheFileName(fileName) ?: return false
         return File(cacheDir, cacheFileName).exists()
     }
 
@@ -132,6 +134,9 @@ class FileProcessor(
     private fun getCacheFilesNames(): List<String> =
             cacheDir.listFiles()?.map(File::getName) ?: emptyList()
 
+    private fun getCacheFileName(fileName: String): String? =
+            getCacheFilesNames().firstOrNull { it.contains(fileName) }
+
     private fun removeOldestFileIfMaxReached() {
         cacheDir.listFiles()
                 ?.takeIf { it.size > maxFilesCount }
@@ -143,6 +148,11 @@ class FileProcessor(
     private fun createCacheDir() {
         libraryDir = File(cacheDirPath, LIBRARY_DIR_NAME).apply { mkdir() }
         cacheDir = File(libraryDir, cacheDirName).apply { mkdir() }
+    }
+
+    private fun deleteExistedFileIfHas(fileName: String) {
+        val cacheFileName: String = getCacheFileName(fileName) ?: return
+        File(cacheDir, cacheFileName).takeIf { it.exists() }?.delete()
     }
 
     private fun File.deleteDirIfEmpty() {
