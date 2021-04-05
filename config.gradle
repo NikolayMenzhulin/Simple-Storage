@@ -1,7 +1,7 @@
 ext {
     // Project configuration
     gradle_v = "3.6.4"
-    kotlin_v = "1.4.10"
+    kotlin_v = "1.4.32"
     android_junit5_plugin_v = "1.7.1.1"
 
     // App configuration
