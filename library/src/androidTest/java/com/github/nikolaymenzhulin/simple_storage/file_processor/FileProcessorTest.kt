@@ -64,7 +64,7 @@ class FileProcessorTest {
         val expectedFileName3 = "test_file_3.txt"
         val expectedFileName4 = "test_file_4.txt"
 
-        createFileProcessor(maxFilesCount = 3).apply {
+        createFileProcessor(maxFilesNumber = 3).apply {
             put(expectedFileName1, expectedBytes)
             put(expectedFileName2, expectedBytes)
             put(expectedFileName3, expectedBytes)
@@ -94,7 +94,7 @@ class FileProcessorTest {
         val expectedFileName1 = "test_file_1.txt"
         val expectedFileName2 = "test_file_2.txt"
 
-        createFileProcessor(maxFilesCount = 2).apply {
+        createFileProcessor(maxFilesNumber = 2).apply {
             put(expectedFileName1, expectedBytes)
             put(expectedFileName2, expectedBytes)
             remove(expectedFileName1)
@@ -140,7 +140,7 @@ class FileProcessorTest {
         val expectedFileName2 = "test_file_2.txt"
 
         createFileProcessor(cacheDirName = cacheDirName1).put(expectedFileName, expectedBytes)
-        createFileProcessor(cacheDirName = cacheDirName2, maxFilesCount = 2).apply {
+        createFileProcessor(cacheDirName = cacheDirName2, maxFilesNumber = 2).apply {
             put(expectedFileName1, expectedBytes)
             put(expectedFileName2, expectedBytes)
             clear()
@@ -159,7 +159,7 @@ class FileProcessorTest {
         val expectedFileName1 = "test_file_1.txt"
         val expectedFileName2 = "test_file_2.txt"
 
-        createFileProcessor(maxFilesCount = 2).apply {
+        createFileProcessor(maxFilesNumber = 2).apply {
             put(expectedFileName1, expectedBytes)
             put(expectedFileName2, expectedBytes)
             clear()
@@ -198,7 +198,7 @@ class FileProcessorTest {
         val expectedFileName3 = "test_file_3.txt"
 
         val fileProcessor: FileProcessor =
-                createFileProcessor(maxFilesCount = 3).apply {
+                createFileProcessor(maxFilesNumber = 3).apply {
                     put(expectedFileName1, expectedBytes)
                     put(expectedFileName2, expectedBytes)
                     put(expectedFileName3, expectedBytes)
@@ -212,9 +212,9 @@ class FileProcessorTest {
     private fun createFileProcessor(
             cacheDirPath: String = this.cacheDirPath,
             cacheDirName: String = this.cacheDirName,
-            maxFilesCount: Int = 1
+            maxFilesNumber: Int = 1
     ): FileProcessor =
-            FileProcessor(cacheDirPath, cacheDirName, maxFilesCount)
+            FileProcessor(cacheDirPath, cacheDirName, maxFilesNumber)
 
     private fun isFileExists(expectedFileName: String): Boolean {
         val cacheDir = File(expectedCacheDirPath)

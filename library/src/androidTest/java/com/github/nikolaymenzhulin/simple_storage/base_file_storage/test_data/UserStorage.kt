@@ -5,7 +5,7 @@ import com.github.nikolaymenzhulin.simple_storage.file_name_generator.SimpleFile
 import com.github.nikolaymenzhulin.simple_storage.file_processor.FileProcessor
 
 class UserStorage(cacheDirPath: String) : BaseGsonFileStorage<User>(
-        fileProcessor = FileProcessor(cacheDirPath = cacheDirPath, cacheDirName = "users_cache", maxFilesCount = 3),
+        fileProcessor = FileProcessor(cacheDirPath = cacheDirPath, cacheDirName = "users_cache", maxFilesNumber = 3),
         fileNameGenerator = SimpleFileNameGenerator(),
         classType = User::class.java
 )

@@ -8,7 +8,7 @@ import java.io.File
  *
  * @param cacheDirPath путь к директории с файлами кэша
  * @param cacheDirName название директории, в которой будут храниться файлы кэша
- * @param maxFilesCount максимальное количество файлов в кэше
+ * @param maxFilesNumber максимальное количество файлов в кэше
  *
  * @property libraryDir директория библиотеки, в которой хранятся все директории различных кэшей
  * @property cacheDir директория текущего кэша, в которой хранятся его файлы
@@ -16,7 +16,7 @@ import java.io.File
 class FileProcessor(
         private val cacheDirPath: String,
         private val cacheDirName: String,
-        private val maxFilesCount: Int
+        private val maxFilesNumber: Int
 ) {
 
     private companion object {
@@ -139,9 +139,9 @@ class FileProcessor(
 
     private fun removeOldestFileIfMaxReached() {
         cacheDir.listFiles()
-                ?.takeIf { it.size > maxFilesCount }
+                ?.takeIf { it.size > maxFilesNumber }
                 ?.sortedByDescending { it.name.getLastModifiedTag() }
-                ?.drop(maxFilesCount)
+                ?.drop(maxFilesNumber)
                 ?.forEach(File::delete)
     }
 

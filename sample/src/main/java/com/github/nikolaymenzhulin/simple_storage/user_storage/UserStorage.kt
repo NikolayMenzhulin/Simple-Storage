@@ -5,6 +5,6 @@ import com.github.nikolaymenzhulin.simple_storage.file_name_generator.SimpleFile
 import com.github.nikolaymenzhulin.simple_storage.file_processor.FileProcessor
 
 class UserStorage(cacheDirPath: String) : BaseStringFileStorage(
-        fileProcessor = FileProcessor(cacheDirPath = cacheDirPath, cacheDirName = "users_cache", maxFilesCount = 5),
+        fileProcessor = FileProcessor(cacheDirPath = cacheDirPath, cacheDirName = "users_cache", maxFilesNumber = 5),
         fileNameGenerator = SimpleFileNameGenerator()
 )
