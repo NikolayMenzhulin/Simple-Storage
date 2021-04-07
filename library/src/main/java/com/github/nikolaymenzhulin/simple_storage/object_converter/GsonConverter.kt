@@ -5,10 +5,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 /**
- * Конвертер данных в массив байтов и обратно, использующий для конвертации [Gson].
+ * The data converter from/to bytes that uses [Gson] for convertation.
  *
- * @param classType тип класса конвертируемых данных
- * @param gson объект [Gson], который будет использоваться для конвертации
+ * @param classType the class type of convert data
+ * @param gson the [Gson] object, that will be used for convertation
  */
 class GsonConverter<T>(
         private val classType: Class<T>,
@@ -16,20 +16,20 @@ class GsonConverter<T>(
 ) : ObjectConverter<T> {
 
     /**
-     * Конвертировать данные в массив байтов.
+     * Converts data to bytes.
      *
-     * @param data данные для конвертации
+     * @param data the data for convertation
      *
-     * @return массив байтов, полученный после конвертации данных
+     * @return the bytes received after convertation
      */
     override fun encode(data: T): ByteArray = gson.toJson(data).toByteArray()
 
     /**
-     * Конвертировать массив байтов в данные.
+     * Converts bytes to data.
      *
-     * @param bytes массив байтов для конвертации
+     * @param bytes the bytes fir convertation
      *
-     * @return данные, полученные после конвертации массива байтов
+     * @return the data received after convertation
      */
     override fun decode(bytes: ByteArray): T = gson.fromJson(String(bytes), classType)
 }

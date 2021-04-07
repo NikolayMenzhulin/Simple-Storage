@@ -3,16 +3,16 @@ package com.github.nikolaymenzhulin.simple_storage.file_name_generator
 import com.github.nikolaymenzhulin.simple_storage.file_name_generator.base.FileNameGenerator
 
 /**
- * Генератор имён для кэшируемых файлов, который генерирует имя из переданного ключа используя его как есть.
+ * The names generator for cache files that generates names from a passed key using it as is.
  */
 class SimpleFileNameGenerator : FileNameGenerator {
 
     /**
-     * Сгенерировать имя файла на основе ключа.
+     * Generates a file name based on a passed key.
      *
-     * @param key ключ, на основе которого необходимо сгенерировать имя для кэшируемого файла
+     * @param key the key, on the basis of which need to generate the name for the cache file
      *
-     * @return сгенерированное имя файла
+     * @return the generated file name
      */
     override fun generate(key: String): String = key
 }

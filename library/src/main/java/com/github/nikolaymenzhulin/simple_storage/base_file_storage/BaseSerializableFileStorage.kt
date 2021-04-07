@@ -7,11 +7,10 @@ import com.github.nikolaymenzhulin.simple_storage.object_converter.SerializableC
 import java.io.Serializable
 
 /**
- * Базовый класс хранилища [Serializable] данных, основанного на файловом кэше,
- * которое использует [SerializableConverter] для сериализации/десериализации хранимых данных.
+ * The base class of a file-based data storage that uses [SerializableConverter] for serialization/deserialization contained data.
  *
- * @param fileProcessor класс для осуществления операций с файлами кэша
- * @param fileNameGenerator класс, генерирующий имена для кэшируемых файлов на основе переданного ключа
+ * @param fileProcessor the object for working with cache files
+ * @param fileNameGenerator the object for generating names for cache files
  */
 abstract class BaseSerializableFileStorage<T : Serializable>(
         fileProcessor: FileProcessor,

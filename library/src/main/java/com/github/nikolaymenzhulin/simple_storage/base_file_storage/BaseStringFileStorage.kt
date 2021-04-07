@@ -6,8 +6,10 @@ import com.github.nikolaymenzhulin.simple_storage.file_processor.FileProcessor
 import com.github.nikolaymenzhulin.simple_storage.object_converter.StringConverter
 
 /**
- * Базовый класс хранилища строковых данных, основанного на файловом кэше,
- * которое использует [StringConverter] для сериализации/десериализации хранимых данных.
+ * The base class of a file-based data storage that uses [StringConverter] for serialization/deserialization contained data.
+ *
+ * @param fileProcessor the object for working with cache files
+ * @param fileNameGenerator the object for generating names for cache files
  */
 abstract class BaseStringFileStorage(
         fileProcessor: FileProcessor,

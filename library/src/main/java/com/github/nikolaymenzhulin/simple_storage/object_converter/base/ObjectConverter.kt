@@ -1,25 +1,25 @@
 package com.github.nikolaymenzhulin.simple_storage.object_converter.base
 
 /**
- * Базовый интерфейс для класса, конвертирующего данные в массив байтов и обратно.
+ * The base interface for a class that converts data from/to bytes.
  */
 interface ObjectConverter<T> {
 
     /**
-     * Конвертировать данные в массив байтов.
+     * Converts data to bytes.
      *
-     * @param data данные для конвертации
+     * @param data the data for convertation
      *
-     * @return массив байтов, полученный после конвертации данных, или null, в случае ошибки конвертации
+     * @return the bytes received after convertation or null if a convertation error occurred
      */
     fun encode(data: T): ByteArray?
 
     /**
-     * Конвертировать массив байтов в данные.
+     * Converts bytes to data.
      *
-     * @param bytes массив байтов для конвертации
+     * @param bytes the bytes fir convertation
      *
-     * @return данные, полученные после конвертации массива байтов, или null, в случае ошибки конвертации
+     * @return the data received after convertation or null if a convertation error occurred
      */
     fun decode(bytes: ByteArray): T?
 }

@@ -3,25 +3,25 @@ package com.github.nikolaymenzhulin.simple_storage.object_converter
 import com.github.nikolaymenzhulin.simple_storage.object_converter.base.ObjectConverter
 
 /**
- * Конвертер строковых данных в массив байтов и обратно.
+ * The converter of string data from/to bytes.
  */
 class StringConverter : ObjectConverter<String> {
 
     /**
-     * Конвертировать данные в массив байтов.
+     * Converts data to bytes.
      *
-     * @param data данные для конвертации
+     * @param data the data for convertation
      *
-     * @return массив байтов, полученный после конвертации данных
+     * @return the bytes received after convertation
      */
     override fun encode(data: String): ByteArray = data.toByteArray()
 
     /**
-     * Конвертировать массив байтов в данные.
+     * Converts bytes to data.
      *
-     * @param bytes массив байтов для конвертации
+     * @param bytes the bytes fir convertation
      *
-     * @return данные, полученные после конвертации массива байтов
+     * @return the data received after convertation
      */
     override fun decode(bytes: ByteArray): String = String(bytes)
 }

@@ -5,11 +5,11 @@ import com.github.nikolaymenzhulin.simple_storage.file_processor.FileProcessor
 import com.github.nikolaymenzhulin.simple_storage.object_converter.base.ObjectConverter
 
 /**
- * Базовый класс хранилища данных, основанного на файловом кэше.
+ * The base class of a file-based data storage.
  *
- * @param fileProcessor класс для осуществления операций с файлами кэша
- * @param fileNameGenerator класс, генерирующий имена для кэшируемых файлов на основе переданного ключа
- * @param objectConverter класс, конвертирующий данные в массив байтов и обратно
+ * @param fileProcessor the object for working with cache files
+ * @param fileNameGenerator the object for generating names for cache files
+ * @param objectConverter the object for converting data from/to bytes
  */
 abstract class BaseFileStorage<T>(
         private val fileProcessor: FileProcessor,
@@ -18,46 +18,43 @@ abstract class BaseFileStorage<T>(
 ) {
 
     /**
-     * Добавить данные в хранилище.
+     * Adds data to the storage.
      *
-     * @param key ключ, идентифицирующий данные, которые надо добавить
-     * @param data данные для добавления
+     * @param key the key identifying the data that need to add
+     * @param data the data to add
      *
-     * @throws IllegalStateException если не удалось получить байты из переданных данных или
-     * если сгенерированное имя для файла в кэше, куда будут кэшироваться данные, является пустым
+     * @throws IllegalStateException if the encoded bytes from the data is empty or
+     * if the generated name for the cache file that will be contains the encoded bytes is empty
      */
     fun put(key: String, data: T) {
         val dataBytes: ByteArray =
                 objectConverter.encode(data)
-                        ?: throw IllegalStateException("Encoded bytes from data is empty")
+                        ?: throw IllegalStateException("The encoded bytes from the data is empty")
 
         fileProcessor.put(fileName = key.toFileName(), data = dataBytes)
     }
 
     /**
-     * Добавить группу данных в хранилище.
+     * Adds group of data to the storage.
      *
-     * @param data map с данными, которые необходимо добавить,
-     * где ключ каждой пары - ключ, идентифицирующий данные,
-     * а значение каждой пары - данные для добавления
+     * @param data the map with data that need to add
+     * where the key of a pair is the key identifying the data and value of the pair is the data to add
      *
-     * @throws IllegalStateException если не удалось получить байты из переданных данных или
-     * если сгенерированное имя для файла в кэше, куда будут кэшироваться данные, является пустым
+     * @throws IllegalStateException if the encoded bytes from the data from one of the pairs is empty or
+     * if the generated name for one of the cache files that will be contains the encoded bytes is empty
      */
     fun putAll(data: Map<String, T>) {
         data.forEach { (key, data) -> put(key, data) }
     }
 
     /**
-     * Получить данные из хранилища.
+     * Gets data from the storage.
      *
-     * @param key ключ, идентифицирующий данные, которые надо получить
+     * @param key the key identifying the data that need to get
      *
-     * @return данные, хранящиеся по переданному ключу или null,
-     * если данные отсутствуют, либо возникла ошибка при их получении
+     * @return the data stored by the key or null if the data is empty or an error occurred while getting it
      *
-     * @throws IllegalStateException если сгенерированное имя для файла в кэше,
-     * из которого требуется прочитать данные, является пустым
+     * @throws IllegalStateException if the generated name for the cache file from which will be reading the data is empty
      */
     fun get(key: String): T? {
         val dataBytes: ByteArray? = fileProcessor.get(fileName = key.toFileName())
@@ -65,9 +62,9 @@ abstract class BaseFileStorage<T>(
     }
 
     /**
-     * Получить все данные из хранилища.
+     * Gets all data from the storage.
      *
-     * @return список всех данных из хранилища
+     * @return the list of all data from the storage
      */
     fun getAll(): List<T?> =
             fileProcessor.getFilesNames().map { fileName ->
@@ -76,45 +73,43 @@ abstract class BaseFileStorage<T>(
             }
 
     /**
-     * Удалить данные из хранилища.
+     * Deletes data from the storage.
      *
-     * @param key ключ, идентифицирующий данные, которые надо удалить
+     * @param key the key identifying the data that need to delete
      *
-     * @throws IllegalStateException если сгенерированное имя для файла в кэше,
-     * который требуется удалить, является пустым
+     * @throws IllegalStateException if the generated name for the cache file that need to delete is empty
      */
     fun remove(key: String) {
         fileProcessor.remove(fileName = key.toFileName())
     }
 
     /**
-     * Полностью очистить хранилище.
+     * Completely clear the storage.
      */
     fun clear() {
         fileProcessor.clear()
     }
 
     /**
-     * Содержутся ли по ключу [key] данные в хранилище?
+     * Is data identifying by [key] contains in the storage?
      *
-     * @param key ключ, идентифицирующий данные, которые надо найти
+     * @param key the key identifying the data that need to found
      *
-     * @return true, если данные содержутся, иначе - false
+     * @return true if the data contains in the storage, false otherwise
      *
-     * @throws IllegalStateException если сгенерированное имя для файла в кэше,
-     * который требуется найти, является пустым
+     * @throws IllegalStateException if the generated name for the cache file that need to found is empty
      */
     fun contains(key: String): Boolean =
             fileProcessor.contains(fileName = key.toFileName())
 
     /**
-     * Содержутся ли данные в хранилище?
+     * Is the storage contains any data?
      *
-     * @return true, если хранилище пустое, иначе - false
+     * @return true if the storage is empty, false otherwise
      */
     fun isEmpty(): Boolean = fileProcessor.isEmpty()
 
     private fun String.toFileName(): String =
             fileNameGenerator.generate(this)
-                    ?: throw IllegalStateException("Generated file name from key is empty")
+                    ?: throw IllegalStateException("The generated file name from the key is empty")
 }

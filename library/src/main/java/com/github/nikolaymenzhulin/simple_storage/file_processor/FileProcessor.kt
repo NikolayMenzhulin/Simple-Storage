@@ -4,14 +4,14 @@ import com.github.nikolaymenzhulin.logger.Logger
 import java.io.File
 
 /**
- * Класс для осуществления операций с файлами кэша.
+ * The class for working with cache files.
  *
- * @param cacheDirPath путь к директории с файлами кэша
- * @param cacheDirName название директории, в которой будут храниться файлы кэша
- * @param maxFilesNumber максимальное количество файлов в кэше
+ * @param cacheDirPath the path to the directory with cache files
+ * @param cacheDirName the name of the directory where cache files will be stored
+ * @param maxFilesNumber the max number of files in the cache directory
  *
- * @property libraryDir директория библиотеки, в которой хранятся все директории различных кэшей
- * @property cacheDir директория текущего кэша, в которой хранятся его файлы
+ * @property libraryDir the library directory where stores all directories from different caches
+ * @property cacheDir the cache directory where stores all its files
  */
 class FileProcessor(
         private val cacheDirPath: String,
@@ -32,13 +32,13 @@ class FileProcessor(
     }
 
     /**
-     * Добавить байты из [data] в файл и сохранить его в директорию кэша.
-     * Если файл уже существует, он будет перезаписан.
-     * Если после добавления очередного файла кэш будет переполнен,
-     * будет удалён наиболее старый файл в директории кэша, чтобы освободить место.
+     * Adds bytes from the [data] to a file and save its to the cache directory.
+     * If the file already exists, it will be overwritten.
+     * If the [maxFilesNumber] was exceed after adding another file,
+     * the oldest file in the cache directory will be deleted to free up space.
      *
-     * @param fileName имя файла, в который будут записаны байты
-     * @param data байты для записи в файл
+     * @param fileName the name of the file where bytes will be written
+     * @param data the bytes to write to the file
      */
     fun put(fileName: String, data: ByteArray) {
         try {
@@ -49,24 +49,23 @@ class FileProcessor(
             File(cacheDir, cacheFileName).writeBytes(data)
             removeOldestFileIfMaxReached()
 
-            // Когда в кэш добавляется насколько небольших файлов подряд,
-            // некоторые из них могут быть добавлены в одну и ту же миллисекунду.
-            // Из-за этого становится невозможным определение, какой из этих файлов является более старым,
-            // когда происходит очистка кэша при его переполнении и более старые файлы удаляются из него.
-            // Добавляем искусственную задержку в 1 миллисекунду при добавлении файлов в кэш,
-            // чтобы избежать этой ситуации.
+            // When several small files are added to the cache directory in a row,
+            // some of them can be added in the same millisecond.
+            // It becomes impossible to determine which of these files is older,
+            // when the cache directory is cleared when it's full and older files are removed from it.
+            // Added a millisecond delay when adding files to the cache directory to avoid this situation.
             Thread.sleep(1)
         } catch (e: Exception) {
-            Logger.e(message = "Error while saving data to cache in ${FileProcessor::class.simpleName}", error = e)
+            Logger.e(message = "Error while saving the data to the cache in ${FileProcessor::class.simpleName}", error = e)
         }
     }
 
     /**
-     * Получить байты из файла с именем [fileName].
+     * Gets bytes from the file named [fileName].
      *
-     * @param fileName имя файла, из которого необходимо получить байты
+     * @param fileName the name of the file from which get bytes
      *
-     * @return массив байтов из файла [fileName] или null, если файл отсутствует или при получении байтов возникла ошибка
+     * @return the bytes from the file, or null if the file not found or an error occurred while retrieving the bytes
      */
     fun get(fileName: String): ByteArray? {
         if (!contains(fileName)) return null
@@ -74,15 +73,15 @@ class FileProcessor(
             val cacheFileName: String? = getCacheFileName(fileName)
             cacheFileName?.let { File(cacheDir, cacheFileName).readBytes() }
         } catch (e: Exception) {
-            Logger.e(message = "Error while reading data from cache in ${FileProcessor::class.simpleName}", error = e)
+            Logger.e(message = "Error while reading the data from the cache in ${FileProcessor::class.simpleName}", error = e)
             return null
         }
     }
 
     /**
-     * Удалить файл с именем [fileName].
-     * Если после удаления файла в директории кэша будет пусто, она тоже будет удалена.
-     * Если после удаления директории кэша в директории библиотеки будет пусто, она тоже будет удалена.
+     * Deletes the file named [fileName].
+     * If the cache directory is empty after deleting the file, it will also be deleted.
+     * If the library directory is empty after deleting the cache directory, it will also be deleted.
      */
     fun remove(fileName: String) {
         cacheDir.listFiles()
@@ -95,8 +94,8 @@ class FileProcessor(
     }
 
     /**
-     * Удалить все файлы в директории кэша включая саму директорию.
-     * Если после удаления директории кэша в директории библиотеки будет пусто, она тоже будет удалена.
+     * Deletes all files in the cache directory including the directory itself.
+     * If the library directory is empty after deleting the cache directory, it will also be deleted.
      */
     fun clear() {
         cacheDir.deleteRecursively()
@@ -104,11 +103,11 @@ class FileProcessor(
     }
 
     /**
-     * Содержится ли файл с именем [fileName] в кэше?
+     * Is the file named [fileName] contains in the cache directory?
      *
-     * @param fileName имя файла для поиска в кэше
+     * @param fileName the file name to search in the cache directory
      *
-     * @return true, если файл имеется в кэше, иначе - false
+     * @return true if the file contains in the cache directory, false otherwise
      */
     fun contains(fileName: String): Boolean {
         val cacheFileName: String = getCacheFileName(fileName) ?: return false
@@ -116,17 +115,17 @@ class FileProcessor(
     }
 
     /**
-     * Содержутся ли файлы в кэше?
+     * Is the cache directory contains any files?
      *
-     * @return true, если кэш пуст, иначе - false
+     * @return true if the cache directory is empty, false otherwise
      */
     fun isEmpty(): Boolean =
             cacheDir.listFiles()?.isEmpty() ?: true
 
     /**
-     * Получить список названий всех файлов в директории кэша.
+     * Gets a list of names for all files in the cache directory.
      *
-     * @return список названий файлов в кэше
+     * @return the list of names for all files in the cache directory
      */
     fun getFilesNames(): List<String> =
             getCacheFilesNames().sortedByDescending { it.getLastModifiedTag() }.map { it.removeLastModifiedTag() }

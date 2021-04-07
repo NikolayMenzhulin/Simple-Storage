@@ -5,16 +5,16 @@ import com.github.nikolaymenzhulin.simple_storage.object_converter.base.ObjectCo
 import java.io.*
 
 /**
- * Конвертер [Serializable] данных в массив байтов и обратно.
+ * The converter of [Serializable] data from/to bytes.
  */
 class SerializableConverter<T : Serializable> : ObjectConverter<T> {
 
     /**
-     * Конвертировать данные в массив байтов.
+     * Converts data to bytes.
      *
-     * @param data данные для конвертации
+     * @param data the data for convertation
      *
-     * @return массив байтов, полученный после конвертации данных, или null, в случае ошибки конвертации
+     * @return the bytes received after convertation or null if a convertation error occurred
      */
     override fun encode(data: T): ByteArray? =
             try {
@@ -30,11 +30,11 @@ class SerializableConverter<T : Serializable> : ObjectConverter<T> {
             }
 
     /**
-     * Конвертировать массив байтов в данные.
+     * Converts bytes to data.
      *
-     * @param bytes массив байтов для конвертации
+     * @param bytes the bytes fir convertation
      *
-     * @return данные, полученные после конвертации массива байтов, или null, в случае ошибки конвертации
+     * @return the data received after convertation or null if a convertation error occurred
      */
     @Suppress("UNCHECKED_CAST")
     override fun decode(bytes: ByteArray): T? =

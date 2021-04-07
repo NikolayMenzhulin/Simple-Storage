@@ -7,16 +7,16 @@ import java.security.MessageDigest
 import java.util.*
 
 /**
- * Генератор имён для кэшируемых файлов, который генерирует имя из переданного ключа как SHA-256 хэш от него.
+ * The names generator for cache files that generates names from a passed key as SHA-256 hash from it.
  */
 class SHA256FileNameGenerator : FileNameGenerator {
 
     /**
-     * Сгенерировать имя файла на основе ключа.
+     * Generates a file name based on a passed key.
      *
-     * @param key ключ, на основе которого необходимо сгенерировать имя для кэшируемого файла
+     * @param key the key, on the basis of which need to generate the name for the cache file
      *
-     * @return сгенерированное имя файла или null, в случае ошибки генерации
+     * @return the generated file name or null if a generation error occurred
      */
     override fun generate(key: String): String? =
             try {

@@ -8,13 +8,12 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 /**
- * Базовый класс хранилища данных, основанного на файловом кэше,
- * которое использует [GsonConverter] для сериализации/десериализации хранимых данных.
+ * The base class of a file-based data storage that uses [GsonConverter] for serialization/deserialization contained data.
  *
- * @param fileProcessor класс для осуществления операций с файлами кэша
- * @param fileNameGenerator класс, генерирующий имена для кэшируемых файлов на основе переданного ключа
- * @param classType тип класса конвертируемых данных
- * @param gson объект [Gson], который будет использоваться для конвертации
+ * @param fileProcessor the object for working with cache files
+ * @param fileNameGenerator the object for generating names for cache files
+ * @param classType the class type of convert data
+ * @param gson the [Gson] object, that will be used for convertation
  */
 abstract class BaseGsonFileStorage<T>(
         fileProcessor: FileProcessor,
