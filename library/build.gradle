@@ -3,6 +3,7 @@ apply plugin: ('kotlin-android')
 apply plugin: ('de.mannodermaus.android-junit5')
 
 apply from: rootProject.file('config.gradle')
+apply from: ('publishing.gradle')
 
 android {
     defaultConfig {

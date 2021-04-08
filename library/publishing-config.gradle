@@ -1,0 +1,20 @@
+ext {
+    // Artifact configuration
+    group_id = 'com.github.nikolaymenzhulin'
+    artifact_id = 'simple-storage'
+
+    // POM configuration
+    library_name = 'Simple Storage'
+    library_description = 'The simple file-based data storage for your objects that converts and contains it as bytes in files.'
+    library_url = 'https://github.com/NikolayMenzhulin/Simple-Storage'
+
+    using_license_name = 'The Apache License, Version 2.0'
+    using_license_url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+
+    developer_name = 'Nikolay Menzhulin'
+    developer_email = 'NikolayMenzhulin@gmail.com'
+
+    scm_connection = 'scm:https://github.com/NikolayMenzhulin/Simple-Storage.git'
+    scm_developer_connection = 'scm:git://github.com:NikolayMenzhulin/Simple-Storage.git'
+    scm_url = 'https://github.com/NikolayMenzhulin/Simple-Storage'
+}

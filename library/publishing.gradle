@@ -1,0 +1,70 @@
+apply plugin: ('maven-publish')
+apply plugin: ('signing')
+
+apply from: ('publishing-config.gradle')
+
+task androidJavadocs(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+}
+
+task withSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+task withJavadocJar(type: Jar) {
+    from androidJavadocs.destinationDir
+    classifier 'javadoc'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            mavenAndroid(MavenPublication) {
+                from components.release
+                artifact withJavadocJar
+                artifact withSourcesJar
+                pom {
+                    groupId = group_id
+                    artifactId = artifact_id
+                    version = System.getenv('RELEASE_VERSION')
+
+                    name = library_name
+                    description = library_description
+                    url = library_url
+
+                    licenses {
+                        license {
+                            name = using_license_name
+                            url = using_license_url
+                        }
+                    }
+                    developers {
+                        developer {
+                            name = developer_name
+                            email = developer_email
+                        }
+                    }
+                    scm {
+                        connection = scm_connection
+                        developerConnection = scm_developer_connection
+                        url = scm_url
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                credentials {
+                    username = findProperty('sonatype_username')
+                    password = findProperty('sonatype_password')
+                }
+            }
+        }
+    }
+
+    signing {
+        sign publishing.publications.mavenAndroid
+    }
+}
