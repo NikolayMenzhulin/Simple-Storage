@@ -219,7 +219,7 @@ class FileProcessorTest {
                     put(expectedFileName3, expectedBytes)
                 }
 
-        val expectedFilesNames: List<String> = listOf(expectedFileName1, expectedFileName2, expectedFileName3)
+        val expectedFilesNames: List<String> = listOf(expectedFileName3, expectedFileName2, expectedFileName1)
         val actualFilesNames: List<String> = fileProcessor.getFilesNames()
         assertEquals(expectedFilesNames, actualFilesNames)
     }
