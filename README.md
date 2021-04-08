@@ -6,10 +6,10 @@ The simple file-based data storage for your objects that converts and contains i
 ## The library structure
 
 The library consists from the four entities:
-- [FileProcessor]() for working with cache files;
-- [FileNameGenerator]() for generating names for cache files;
-- [ObjectConverter]() for converting data from/to bytes;
-- [BaseFileStorage]() that contains prevous entityes and uses its to provides the main functionality of storage.
+- [FileProcessor](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/file_processor/FileProcessor.kt) for working with cache files;
+- [FileNameGenerator](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/file_name_generator/base/FileNameGenerator.kt) for generating names for cache files;
+- [ObjectConverter](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/object_converter/base/ObjectConverter.kt) for converting data from/to bytes;
+- [BaseFileStorage](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/base_file_storage/base/BaseFileStorage.kt) that contains prevous entityes and uses its to provides the main functionality of storage.
 
 ### FileProcessor
 
@@ -17,15 +17,15 @@ FileProcessor contains low level logic for working with cache files and bytes fr
 
 ### FileNameGenerator
 
-This is the base interface for a class that generates names for cache files based on a passed key. Library already provides the two implementations: [SimpleFileNameGenerator]() and [SHA256FileNameGenerator](). The first implementation just use the passed key for generate a file name as is. The second implementation generate a file name as SHA-256 hash from the passed key. In addition to these, you can implement your own.
+This is the base interface for a class that generates names for cache files based on a passed key. Library already provides the two implementations: [SimpleFileNameGenerator](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/file_name_generator/SimpleFileNameGenerator.kt) and [SHA256FileNameGenerator](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/file_name_generator/SHA256FileNameGenerator.kt). The first implementation just use the passed key for generate a file name as is. The second implementation generate a file name as SHA-256 hash from the passed key. In addition to these, you can implement your own.
 
 ### ObjectConverter
 
-This is the base interface for a class that converts data from/to bytes. The three implementations are already have: [GsonConverter](), [SerializableConverter](), [StringConverter](). GsonConverter uses [Gson]() for convertation. SerializableConverter converts only Serializable data. StringConverter converts only String data. In addition to these, you can implement your own.
+This is the base interface for a class that converts data from/to bytes. The three implementations are already have: [GsonConverter](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/object_converter/GsonConverter.kt), [SerializableConverter](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/object_converter/SerializableConverter.kt), [StringConverter](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/object_converter/StringConverter.kt). GsonConverter uses [Gson](https://github.com/google/gson) for convertation. SerializableConverter converts only Serializable data. StringConverter converts only String data. In addition to these, you can implement your own.
 
 ### BaseFileStorage
 
-This is the base class for file-based data storage. At the moment there are the three implementations: [BaseGsonFileStorage](), [BaseSerializableFileStorage](), [BaseStringFileStorage](). They all differ using converters.
+This is the base class for file-based data storage. At the moment there are the three implementations: [BaseGsonFileStorage](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/base_file_storage/BaseGsonFileStorage.kt), [BaseSerializableFileStorage](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/base_file_storage/BaseSerializableFileStorage.kt), [BaseStringFileStorage](https://github.com/NikolayMenzhulin/Simple-Storage/blob/main/library/src/main/java/com/github/nikolaymenzhulin/simple_storage/base_file_storage/BaseStringFileStorage.kt). They all differ using converters.
 
 ## Usage
 
