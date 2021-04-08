@@ -1,0 +1,41 @@
+apply plugin: ('com.android.library')
+apply plugin: ('kotlin-android')
+apply plugin: ('de.mannodermaus.android-junit5')
+
+apply from: rootProject.file('config.gradle')
+apply from: ('publishing.gradle')
+
+android {
+    defaultConfig {
+        buildToolsVersion build_tools_v
+        compileSdkVersion compile_sdk_v
+        minSdkVersion min_sdk_v
+        targetSdkVersion target_sdk_v
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
+    }
+    compileOptions {
+        sourceCompatibility java_source_сompatibility_v
+        targetCompatibility java_target_сompatibility_v
+    }
+    kotlinOptions {
+        jvmTarget = kotlin_jvm_target_v
+        kotlinOptions.freeCompilerArgs += ['-module-name', "com.github.nikolaymenzhulin.simple-storage.library"]
+    }
+}
+
+dependencies {
+    implementation "com.github.nikolaymenzhulin:logger:$logger_v"
+    implementation "com.google.code.gson:gson:$gson_v"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_v"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_v"
+
+    androidTestImplementation "org.junit.jupiter:junit-jupiter-api:$junit_v"
+    androidTestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_v"
+    androidTestImplementation "androidx.test:core:$android_test_core_v"
+    androidTestImplementation("androidx.test:runner:$android_test_core_v")
+    androidTestImplementation "de.mannodermaus.junit5:android-test-core:$android_test_junit5_v"
+    androidTestRuntimeOnly "de.mannodermaus.junit5:android-test-runner:$android_test_junit5_v"
+}

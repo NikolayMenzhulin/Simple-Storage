@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Simple Storage</string>
+
+    <string name="add_user_name_menu_item">Add User Name</string>
+    <string name="clear_storage_menu_item">Clear Storage</string>
+
+    <string name="users_names_list_empty_state">Storage is empty…</string>
+    <string name="user_key_format">User %d</string>
+    <string name="user_name_format">User Name %d</string>
+    <string name="user_name_already_exists_message">User with name \"%s\" already exists</string>
+</resources>

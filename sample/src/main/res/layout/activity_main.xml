@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.nikolaymenzhulin.simple_storage.MainActivity">
+
+    <TextView
+        android:id="@+id/users_names_list_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="16dp"
+        android:padding="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:fontFamily="casual"
+        tools:text="User Name 1\nUser Name 2\nUser Name 3" />
+
+</ScrollView>

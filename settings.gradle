@@ -1,2 +1,3 @@
 rootProject.name='Simple Storage'
-include ':app'
+include ':library'
+include ':sample'
