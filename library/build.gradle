@@ -21,6 +21,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = kotlin_jvm_target_v
+        kotlinOptions.freeCompilerArgs += ['-module-name', "com.github.nikolaymenzhulin.simple-storage.library"]
     }
 }
 
