@@ -81,11 +81,14 @@ abstract class BaseFileStorage<T>(
      *
      * @return the list of all data from the storage
      */
-    fun getAll(): List<T?> =
-            fileProcessor.getFilesNames().map { fileName ->
-                val dataBytes: ByteArray? = fileProcessor.get(fileName)
-                dataBytes?.let { objectConverter.decode(dataBytes) }
-            }
+    fun getAll(): List<T> {
+        val result: MutableList<T> = mutableListOf()
+        for (fileName in fileProcessor.getFilesNames()) {
+            val dataBytes: ByteArray = fileProcessor.get(fileName) ?: continue
+            objectConverter.decode(dataBytes)?.let { result.add(it) }
+        }
+        return result
+    }
 
     /**
      * Deletes data from the storage.
